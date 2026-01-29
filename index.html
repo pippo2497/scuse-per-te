@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Perdonami ❤️</title>
+
   <style>
     :root{
       --bg1:#ffdde1;
@@ -11,7 +12,10 @@
       --card: rgba(255,255,255,.78);
       --text:#2b2b2b;
       --accent:#e11d48;
+      --accent2:#7c3aed;
+      --shadow: 0 18px 50px rgba(0,0,0,.18);
     }
+
     body{
       margin:0;
       min-height:100vh;
@@ -21,18 +25,20 @@
       color:var(--text);
       background: radial-gradient(circle at top, var(--bg1), var(--bg2));
       padding:24px;
+      overflow-x:hidden;
     }
+
     .card{
-      width:min(760px, 100%);
+      width:min(820px, 100%);
       background:var(--card);
       backdrop-filter: blur(8px);
       border-radius:24px;
-      box-shadow: 0 18px 50px rgba(0,0,0,.18);
+      box-shadow: var(--shadow);
       overflow:hidden;
     }
-    .hero{
-      padding:18px 18px 0 18px;
-    }
+
+    .hero{ padding:18px 18px 0 18px; }
+
     img{
       width:100%;
       height:auto;
@@ -40,64 +46,210 @@
       border-radius:18px;
       box-shadow: 0 10px 30px rgba(0,0,0,.18);
     }
-    .content{
-      padding:22px 24px 26px 24px;
-    }
+
+    .content{ padding:22px 24px 26px 24px; }
+
     h1{
       margin: 8px 0 10px 0;
-      font-size: clamp(26px, 3.4vw, 36px);
+      font-size: clamp(26px, 3.4vw, 38px);
       letter-spacing: -0.02em;
     }
+
     p{
       line-height:1.55;
       font-size: 18px;
       margin: 0 0 12px 0;
     }
-    .heart{
-      color:var(--accent);
-      font-weight:700;
+
+    .sig{ margin-top: 14px; font-weight: 650; }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top: 16px;
+      align-items:center;
     }
-    .sig{
-      margin-top: 14px;
-      font-weight: 650;
-    }
-    .badge{
-      display:inline-block;
-      margin-top: 10px;
-      padding: 10px 14px;
+
+    .btn{
+      appearance:none;
+      border:0;
+      cursor:pointer;
       border-radius: 999px;
-      background: rgba(225,29,72,.12);
-      color: #9f1239;
-      font-weight: 650;
+      padding: 12px 16px;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 10px 20px rgba(0,0,0,.12);
+      transition: transform .08s ease, box-shadow .08s ease, opacity .15s ease;
+      user-select:none;
+    }
+    .btn:active{ transform: translateY(1px) scale(0.99); box-shadow: 0 8px 16px rgba(0,0,0,.12); }
+
+    .btn-primary{
+      background: linear-gradient(135deg, var(--accent), #fb7185);
+      color: white;
+    }
+
+    .btn-secondary{
+      background: linear-gradient(135deg, var(--accent2), #a78bfa);
+      color: white;
+    }
+
+    .hint{
+      font-size: 13px;
+      opacity: .75;
+      margin-top: 10px;
+    }
+
+    /* Piccola animazione cuori */
+    .heart{
+      position: fixed;
+      left: 50%;
+      top: 60%;
+      font-size: 18px;
+      pointer-events:none;
+      animation: floatUp 1.4s ease forwards;
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,.12));
+    }
+    @keyframes floatUp{
+      0% { transform: translate(-50%, 0) scale(1); opacity: 0; }
+      15%{ opacity: 1; }
+      100%{ transform: translate(calc(-50% + var(--dx)), -160px) scale(1.35); opacity: 0; }
+    }
+
+    /* Footer mini */
+    .mini{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      margin-top: 10px;
+      opacity:.85;
       font-size: 14px;
+    }
+    .pill{
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(225,29,72,.10);
+      color: #9f1239;
+      font-weight: 700;
     }
   </style>
 </head>
+
 <body>
   <main class="card">
     <section class="hero">
-      <!-- Cambia "foto.jpg" con il nome reale del tuo file -->
-      <img src="foto.jpg" alt="Una foto per te" />
+      <!-- 1) Cambia il nome file della foto qui sotto -->
+      <img src="ChatGPT Image 29 gen 2026, 17_53_40.png" alt="Una foto per te" />
     </section>
 
     <section class="content">
-      <h1>Mi dispiace davvero <span class="heart">❤️</span></h1>
+      <h1>Mi dispiace davvero ❤️</h1>
 
       <p>
         Amore, volevo dirti che mi dispiace. Ho sbagliato e capisco come ti sei sentita.
-        Non voglio trovare scuse: voglio rimediare e dimostrarti con i fatti che ci tengo a te.
+        Non cerco scuse: voglio rimediare e dimostrarti con i fatti che ci tengo a te.
       </p>
 
       <p>
-        Se ti va, parliamone con calma. Ti ascolto davvero.
+        Se ti va, scrivimi...
       </p>
 
-      <p class="sig">
-        — Filippo
-      </p>
+      <p class="sig">— Filippo</p>
 
-      <span class="badge">Ti voglio bene</span>
+      <div class="actions">
+        <button class="btn btn-primary" id="btnForgive">Mi perdoni? 💬</button>
+        <button class="btn btn-secondary" id="btnMusic">▶️ Musica</button>
+      </div>
+
+      <div class="mini">
+        <span class="pill">Ti Amo</span>
+        <span id="musicStatus">Musica: spenta</span>
+      </div>
+
+      <div class="hint">
+        Suggerimento: se apri da telefono, la musica parte al primo tocco.
+      </div>
     </section>
   </main>
+
+  <!-- 2) Carica un file audio nel repo e chiamalo musica.mp3 (o cambia qui sotto) -->
+  <audio id="bgm" src="Taylor Swift - Love Story [8xg3vE8Ie_E].mp3" preload="auto" loop></audio>
+
+  <script>
+    // ========= CONFIG =========
+    // Inserisci qui il numero WhatsApp in formato internazionale SENZA "+" e senza spazi.
+    // Esempio Italia: 39xxxxxxxxxx
+    const WHATSAPP_NUMBER = "393275989355";
+
+    // Messaggio precompilato (personalizzalo come vuoi)
+    const WHATSAPP_TEXT =
+      "Ciao Topo. Ti perdono sciocchino!! ❤️";
+
+    // ========= LOGICA =========
+    const audio = document.getElementById("bgm");
+    const btnForgive = document.getElementById("btnForgive");
+    const btnMusic = document.getElementById("btnMusic");
+    const musicStatus = document.getElementById("musicStatus");
+
+    function spawnHeart(){
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.textContent = Math.random() > 0.5 ? "❤️" : "💗";
+      const dx = (Math.random() * 140 - 70).toFixed(0) + "px";
+      h.style.setProperty("--dx", dx);
+      h.style.left = (50 + (Math.random()*12 - 6)).toFixed(1) + "%";
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 1500);
+    }
+
+    async function tryPlayMusic(){
+      try {
+        await audio.play();
+        musicStatus.textContent = "Musica: accesa";
+        btnMusic.textContent = "⏸️ Pausa";
+      } catch (e) {
+        // Se il browser blocca l'autoplay, la musica partirà al prossimo gesto utente.
+        musicStatus.textContent = "Musica: tocca per avviare";
+      }
+    }
+
+    function pauseMusic(){
+      audio.pause();
+      musicStatus.textContent = "Musica: spenta";
+      btnMusic.textContent = "▶️ Musica";
+    }
+
+    // Bottone musica play/pausa
+    btnMusic.addEventListener("click", async () => {
+      spawnHeart();
+      if (audio.paused) await tryPlayMusic();
+      else pauseMusic();
+    });
+
+    // Bottone "Mi perdoni?" → avvia musica (se possibile) + apre WhatsApp con testo
+    btnForgive.addEventListener("click", async () => {
+      // piccola animazione cuori
+      for (let i=0; i<6; i++) setTimeout(spawnHeart, i*120);
+
+      // prova ad avviare la musica (su mobile funziona perché è un gesto utente)
+      await tryPlayMusic();
+
+      // apre WhatsApp
+      const text = encodeURIComponent(WHATSAPP_TEXT);
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+      window.open(url, "_blank");
+    });
+
+    // Bonus: avvia musica al primo tap/click in pagina (opzionale, delicato)
+    // Rende più probabile che parta subito se lei tocca la pagina.
+    let firstInteraction = true;
+    document.addEventListener("click", async () => {
+      if (!firstInteraction) return;
+      firstInteraction = false;
+      // non forziamo: proviamo e basta
+      await tryPlayMusic();
+    }, { passive: true });
+  </script>
 </body>
 </html>
