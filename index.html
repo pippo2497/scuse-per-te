@@ -238,7 +238,7 @@
       // apre WhatsApp
       const text = encodeURIComponent(WHATSAPP_TEXT);
       const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
-      window.open(url, "_blank");
+      window.location.href = url;
     });
 
     // Bonus: avvia musica al primo tap/click in pagina (opzionale, delicato)
